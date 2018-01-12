@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import store from './store'
 import ElementUI from 'element-ui'
 import VueParticles from 'vue-particles'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -53,6 +54,7 @@ axios.interceptors.response.use(
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

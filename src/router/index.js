@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import login from '@/view/login/login'
 import Cookies from 'js-cookie'
+import login from '@/view/login/login'
+import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
@@ -14,12 +14,14 @@ const router = new Router({
           hidden: true,
           requireAuth: false
       },
-      component: login
+      components: {
+        loginview:login
+      } 
     }, {
       path: '/',
       name: 'HelloWorld',
       meta: {
-        hidden: true,
+        hidden: false,
         requireAuth: true
       },
       component: HelloWorld

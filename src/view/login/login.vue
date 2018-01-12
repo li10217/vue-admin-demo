@@ -53,7 +53,7 @@ export default {
         name: Cookies.get("userInfo") || "admin",
         password: Cookies.get("passwordInfo") || "654321"
       },
-      isMemery: false,
+      isMemery: true,
       rules: {
         name: [
           {
@@ -89,7 +89,6 @@ export default {
               password: this.form.password
             }
           }).then(res => {
-            debugger
             localStorage.userName = res.data.data.userName;
             localStorage.userId = res.data.data.userId;
             Cookies.set("isLogin", "1", { expires: 7 });

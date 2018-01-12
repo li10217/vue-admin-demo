@@ -1,18 +1,24 @@
 <template>
   <div>
-    <h1>{{msg}}</h1>
-    <el-button type="primary" @click="SignOut">退出</el-button>
+    <side></side>
+　  <Content></Content>
   </div>
 </template>
 
 <script>
 import Cookies from "js-cookie";
+import Side from "./Side"
+import Content from "./Content"
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
     }
+  },
+  components: {
+    Side,
+    Content
   },
   methods: {
     SignOut(){
