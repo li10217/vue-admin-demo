@@ -4,6 +4,8 @@
 
 ## Build Setup
 
+[线上地址](https://li10217.github.io/vue-admin-demo/)
+
 ``` bash
 # install dependencies
 npm install
