@@ -7,48 +7,38 @@
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
-        background-color="#495060"
+        background-color="#fff"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-row>
-          <el-col :span="6" style="text-align:center;">
-            <img src="../assets/img/cat.png" height="56px" >
+        <el-row type="flex" class="row-bg">
+          <el-col :span="18">
+            <breadcrumb-nav :currentPath="currentPath"></breadcrumb-nav>
           </el-col>
-          <el-col :span="12">
-            <el-menu-item index="1">控制台</el-menu-item>
-            <el-submenu index="2">
-              <template slot="title">我的图库</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
-              <el-menu-item index="2-3">选项3</el-menu-item>
-            </el-submenu>
-            <el-menu-item index="5">回收站</a></el-menu-item>
-            <el-menu-item index="3">用户管理</a></el-menu-item>
-          </el-col>
-          <el-col :span="6" style="">
-            <el-col :span="12">
-              <el-menu-item index="4">
-                  <el-dropdown @command="handleClick">
-                    <span class="el-dropdown-link" style="color:#ffffff;">
-                      <img src="../assets/img/person.jpg" height="44px" style="border-radius:22px;margin:5px 5px;" >
-                      {{userName}}
-                      <i class="el-icon-arrow-down el-icon--right"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item command="a">个人中心</el-dropdown-item>
-                      <el-dropdown-item command="b">修改资料</el-dropdown-item>
-                      <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </el-dropdown>  
-                </el-menu-item>
-            </el-col>
-          </el-col>
-        </el-row>
-      </el-menu>
-    </div>
+          <el-col :span="6">
+            <el-row type="flex" class="row-bg" justify="end">
+                <el-menu-item index="9">
+                    <el-dropdown @command="handleClick">
+                      <span class="el-dropdown-link" style="color:#409EFF;">
+                        {{userName}}
+                        <i class="el-icon-caret-bottom" style="color:#409EFF;margin:0;height:24px;"></i>
+                        <img src="../assets/img/person.jpg" height="44px" style="border-radius:22px;margin:5px 5px;" >
+                      </span>
+                      <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="a">个人中心</el-dropdown-item>
+                        <el-dropdown-item command="b">修改资料</el-dropdown-item>
+                        <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>  
+                  </el-menu-item>
+          </el-row>
+        </el-col>
+      </el-row>
+    </el-menu>
+  </div>
 </template>
 <script>
 import Cookies from "js-cookie";
+import breadcrumbNav from './breadcrumbNav.vue';
 export default {
   name: "topbar",
   data() {
@@ -57,9 +47,15 @@ export default {
       activeIndex1:'1'
     };
   },
+  components: {
+    breadcrumbNav,
+  },
   computed: {
     isCollapse: function() {
       return this.$store.state.common.isCollapse;
+    },
+    currentPath: function() {
+      return this.$store.state.app.currentPath; // 当前面包屑数组
     }
   },
   methods: {
@@ -69,10 +65,10 @@ export default {
     logout() {
       Cookies.set("isLogin", "0");
       localStorage.clear();
-      this.$router.push("login");
+      this.$router.push({path:'/login'});
     },
     handleSelect(index,indexpath){
-      debugger
+      
     },
     handleClick(command) {
         if(command=="logout"){

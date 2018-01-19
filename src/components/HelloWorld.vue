@@ -1,7 +1,8 @@
 <template>
   <div>
-    <side></side>
-　  <Content></Content>
+    <!-- <side></side>
+　  <Content></Content> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,6 +20,9 @@ export default {
   components: {
     Side,
     Content
+  },
+  created (){
+    
   },
   methods: {
     SignOut(){

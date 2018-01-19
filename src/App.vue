@@ -2,38 +2,32 @@
   <div id="app">
         <router-view name="loginview"></router-view>
         <!-- 如果路由信息中的meta中的hidden等于true，就隐藏下面的视图 -->
-        <div v-if="!this.$route.meta.hidden">
-            <!-- 这是侧导航 -->
-            <!-- <side-bar></side-bar> -->
-            <div>
-                <!-- 这是顶部导航 -->
-                <top-bar></top-bar>
+        <div v-if="!this.$route.meta.hidden" class="div-h">
+            <div class="div-h">
                 <!-- 这是组件要插入的地方 -->
-                
-                <div style="width:70%;margin:0 15%;">
+                <el-container class="div-h">
+                    <el-aside style="width:200px;height:100%;background-color:#495060">
+                        <side-bar></side-bar>
+                    </el-aside>
                     <el-container>
-                    <el-header style="line-height:60px;">
-                        <el-tag style="margin-right:10px;"
-                        v-for="tag in tags"
-                        :key="tag.name"
-                        closable
-                        @close="handleClose(tag)"
-                        :type="tag.type">
-                        {{tag.name}}
-                        </el-tag>
-                    </el-header>
-                    <el-container>
-                        <el-aside width="200px">Aside</el-aside>
-                        <el-container>
+                        <el-header style="padding:0;"><top-bar></top-bar></el-header>
+                        <div class="tags" v-if="openPageTagList.length>0 && showTags">
+                                <el-tag style="margin-right:10px;cursor:pointer;"
+                                    v-for="tag in openPageTagList"
+                                    :key="tag.name"
+                                    closable
+                                    @click.native="pageTagClick(tag)"
+                                    @close="handleClose(tag)"
+                                    :type="tag.type">
+                                    {{tag.name}}
+                                    </el-tag>
+                                <el-button @click="closeTags" size="small">关闭</el-button>
+                        </div>
                         <el-main>
-                            <router-view class="page-component-wrap animated fadeIn"></router-view>
+                            <router-view></router-view>
                         </el-main>
-                        <el-footer>Footer</el-footer>
-                        </el-container>
                     </el-container>
-                    </el-container>
-                </div>
-                
+                </el-container>
             </div>
         </div>
   </div>
@@ -42,34 +36,58 @@
 <script>
 import TopBar from './components/TopBar'
 import SideBar from './components/SideBar'
+import util from './lib/utils.js';
 
 export default {
     name: 'app',
     data() {
         return {
-            tags: [
-                { name: '标签一', type: '' },
-                { name: '标签二', type: 'info' },
-                { name: '标签三', type: 'info' },
-                { name: '标签四', type: 'info' },
-                { name: '标签五', type: 'info' }
-            ]
+            showTags:true
         }
     },
     computed: {
+        openPageTagList:function (){
+            return this.$store.state.app.openPageTagList
+        },
         isCollapse: function () {
             return this.$store.state.common.isCollapse
-        }
+        },
+        currentPath () {
+            return this.$store.state.app.currentPath; // 当前面包屑数组
+        },
     },
     components: {
         'top-bar': TopBar,
         'side-bar': SideBar,
     },
     methods: {
+        closeTags(){
+            this.showTags=false;
+        },
         handleClose(tag) {
-            this.tags.splice(this.tags.indexOf(tag), 1);
+            util.delPageTagList(this,tag);
+        },
+        pageTagClick(tag){
+            util.changePageTagList(this,tag);
+            this.$router.push({path:tag.path});
+        },
+        init(){
+            let pathArr = util.setCurrentPath(this, this.$route);
         }
-    }
+    },
+    watch: {
+        '$route' (to) {
+            util.addPageTagList(this,{
+                name:to.name,
+                path:to.path,
+                type:'info'
+            });
+            util.setCurrentPath(this, to);
+        }
+    },
+    mounted () {
+        this.init();
+    },
 }
 </script>
 <style lang="less">
@@ -101,13 +119,19 @@ body {
         }
     }
 }
-
+.div-h{
+    height: 100%;
+}
 // 左侧导航图表垂直方向对齐
 // 宽度还得自己设定，坑死
 .el-menu {
     width: 100%;
 }
 .el-menu-item [class^=el-icon-] {
+    vertical-align: middle;
+    color: #ddd;
+}
+.el-menu-item i {
     vertical-align: middle;
     color: #ddd;
 }
@@ -124,6 +148,14 @@ body {
     content: '*';
     color: #ff4949;
     margin-right: 4px;
+}
+.tags{
+    min-height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    margin-top: 5px;
+    padding: 0 20px;
+    box-shadow: 1px 1px 1px #ddd;
 }
 </style>
 

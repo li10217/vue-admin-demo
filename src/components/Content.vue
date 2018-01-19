@@ -9,7 +9,7 @@
 export default {
     data(){
         return {
-            items:this.$store.state.admin.items
+            items:this.$store.state.app.items
         }
     },
     methods: {
