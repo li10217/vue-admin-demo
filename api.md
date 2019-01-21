@@ -26,7 +26,7 @@
 |:-----  |:-------|:-----|-----                               |
 |activityName     |false  |string|活动名称                     |
 |contactNumber    |false  |int   |联系人手机号                  |
-|pageParams       |false  |object   | pageParams:{pageIndex: 1, pageSize: 20}         |
+|pageParams       |true  |object   | pageParams:{pageIndex: 1, pageSize: 20}         |
 
 ###### 返回字段
 > 
