@@ -28,17 +28,6 @@
 |contactNumber    |false  |int   |联系人手机号                  |
 |pageParams       |true  |object   | pageParams:{pageIndex: 1, pageSize: 20}         |
 
-###### 返回字段
-> 
-|返回字段|字段类型|说明                              |
-|:-----   |:------|:-----------------------------   |
-|expressageID   |string    |快递信息ID   |
-|expressNumber  |string | 快递单号                      |
-|expressCompany |string | 快递公司                        |
-|contactPerson |string | 联系人姓名                        |
-|contactNumber |string | 联系人手机号                        |
-|expressCompany |string | 快递公司                        |
-
 ###### 接口请求示例
 > 地址：[http://localhost/PPTSWebApp/PPTS.WebAPI.ThirdParty/api/express/GetPagedExpress](http://localhost/PPTSWebApp/PPTS.WebAPI.ThirdParty/api/express/GetPagedExpress)
 ``` javascript
@@ -73,4 +62,14 @@
   ]
 }
 ```
+###### 返回字段说明
+> 
+|返回字段|字段类型|说明                              |
+|:-----   |:------|:-----------------------------   |
+|expressageID   |string    |快递信息ID   |
+|expressNumber  |string | 快递单号                      |
+|expressCompany |string | 快递公司                        |
+|contactPerson |string | 联系人姓名                        |
+|contactNumber |string | 联系人手机号                        |
+|expressCompany |string | 快递公司                        |
 
