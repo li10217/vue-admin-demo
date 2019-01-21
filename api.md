@@ -25,7 +25,7 @@
 |参数|必选|类型|说明|
 |:-----  |:-------|:-----|-----                               |
 |activityName     |false  |string|活动名称                     |
-|contactNumber    |false  |string   |联系人手机号                  |
+|contactNumber    |true  |string   |联系人手机号                  |
 |pageParams       |true  |object   | pageParams:{pageIndex: 1, pageSize: 20}         |
 
 ###### 接口请求示例
