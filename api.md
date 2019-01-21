@@ -21,15 +21,19 @@
 > 
 |参数|必选|类型|说明|
 |:-----  |:-------|:-----|-----                               |
-|name    |ture    |string|请求的项目名                          |
-|type    |true    |int   |请求项目的类型。1：类型一；2：类型二 。|
+|activityName     |ture  |string|请求的项目名                          |
+|contactNumber    |true  |int   |请求项目的类型。1：类型一；2：类型二 。|
 
 ###### 返回字段
-> |返回字段|字段类型|说明                              |
+> 
+|返回字段|字段类型|说明                              |
 |:-----   |:------|:-----------------------------   |
-|status   |int    |返回结果状态。0：正常；1：错误。   |
-|company  |string | 所属公司名                      |
-|category |string |所属类型                         |
+|expressageID   |string    |快递信息ID   |
+|expressNumber  |string | 快递单号                      |
+|expressCompany |string | 快递公司                        |
+|contactPerson |string | 联系人姓名                        |
+|contactNumber |string | 联系人手机号                        |
+|expressCompany |string | 快递公司                        |
 
 ###### 接口示例
 > 地址：[http://localhost/PPTSWebApp/PPTS.WebAPI.ThirdParty/api/express/GetPagedExpress](http://localhost/PPTSWebApp/PPTS.WebAPI.ThirdParty/api/express/GetPagedExpress)
